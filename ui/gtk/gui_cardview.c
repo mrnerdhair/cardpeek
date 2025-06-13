@@ -267,9 +267,7 @@ static void menu_cardview_context_menu(GtkWidget *treeview, GdkEventButton *even
 
     gtk_widget_show_all(menu);
 
-    gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL,
-                   (event != NULL) ? event->button : 0,
-                   gdk_event_get_time((GdkEvent *)event));
+    gtk_menu_popup_at_pointer(GTK_MENU(menu), NULL);
 }
 
 static gboolean menu_cardview_key_press_event(GtkWidget *treeview,  GdkEventKey *event, gpointer user_data)
@@ -353,9 +351,7 @@ static void menu_cardview_analyzer_cb(GtkWidget *w, gpointer user_data)
     GtkWidget *menu=(GtkWidget *)user_data;
     if (menu)
     {
-        gtk_menu_popup(GTK_MENU(menu), NULL, NULL,
-                       menu_cardview_analyzer_cb_pos_func, w,
-                       0, gtk_get_current_event_time());
+        gtk_menu_popup_at_widget(GTK_MENU(menu), w, GDK_GRAVITY_SOUTH_WEST, GDK_GRAVITY_NORTH_WEST, NULL);
     }
     else
         log_printf(LOG_ERROR,"No menu to display");
